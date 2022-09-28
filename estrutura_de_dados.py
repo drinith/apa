@@ -84,17 +84,31 @@ class Lista(Estrutura):
     #inseri na posição
     def inserir_na_posicao(self,posicao,valor):
 
-        if (posicao>self.tamanho):
+        if (posicao+1>self.tamanho):
             print('Não existe essa posição na lista')
         else:
             no = self.no_inicio
-            for lugar in range(posicao+1):
+            for lugar in range(posicao):
                 no = no.proximo_no
-            
+
+            anterior = no.anterior_no
+
             no_novo=No(valor)
+           
+           
+            if((no.proximo_no!=None) & (no.anterior_no!=None)):
+                #o nó anterior do no atual aponta com seu proximo para o no novo
+                anterior.proximo_no = no_novo
+                #o anteriro do novo nó aponta para o anterior
+                no_novo.anterior_no = anterior
+                #o proximo do nó novo aponta para no 
+                no_novo.proximo_no = no
+                # e o anterior de no aponto para no novo
+                no.anterior_no=no_novo
+           
             #não existe nó anterior, então o nó era o inicio
-            if(no.anterior_no==None):
-                #inicio aponta para novo nó,                
+            if(anterior==None):
+                #inicio   aponta para novo nó,                
                 self.no_inicio=no_novo
                 #novo nó aponta para o antigo inicio
                 no_novo.proximo_no = no
@@ -107,25 +121,11 @@ class Lista(Estrutura):
                 no_novo.anterior_no = no
                 #e o antigo no fim  a aponta seu proximo para o novo no
                 no.proximo_no = no_novo
-            if((no.proximo_no!=None) & (no.anterior_no!=None)):
-                #o nó anterior do no atual aponta com seu proximo para o no novo
-                no.anterior_no.proximo_no = no_novo
-                #o anteriro do novo nó aponta para o anterior
-                no_novo.anterior_no = no.anterior_no
-                #o proximo do nó novo aponta para no 
-                no_novo.proximo_no = no
-                # e o anterior de no aponto para no novo
-                no.anterior_no=no_novo
+           
             self.tamanho+=1
 
 
-
-                
-            
-           
-
     #retira da posição
-
 
 if (__name__=='__main__'):
 
@@ -137,6 +137,6 @@ if (__name__=='__main__'):
 
     lista.listar_valores()
 
-    lista.inserir_na_posicao(2,5)
+    lista.inserir_na_posicao(1,5)
     lista.listar_valores()
    
