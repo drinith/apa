@@ -81,49 +81,56 @@ class Lista(Estrutura):
         else:
             print('Lista vazia')
     
-    #inseri na posição
-    def inserir_na_posicao(self,posicao,valor):
-
+    #traz nó de uma determinada posição
+    def pegar_no_posicao(self,posicao):
+    
         if (posicao+1>self.tamanho):
             print('Não existe essa posição na lista')
         else:
             no = self.no_inicio
             for lugar in range(posicao):
                 no = no.proximo_no
+    
+    #inseri na posição
+    def inserir_na_posicao(self,posicao,valor):
 
-            anterior = no.anterior_no
+        no=self.pegar_no_posicao(posicao)
+        anterior = no.anterior_no
 
-            no_novo=No(valor)
-           
-           
-            if((no.proximo_no!=None) & (no.anterior_no!=None)):
-                #o nó anterior do no atual aponta com seu proximo para o no novo
-                anterior.proximo_no = no_novo
-                #o anteriro do novo nó aponta para o anterior
-                no_novo.anterior_no = anterior
-                #o proximo do nó novo aponta para no 
-                no_novo.proximo_no = no
-                # e o anterior de no aponto para no novo
-                no.anterior_no=no_novo
-           
-            #não existe nó anterior, então o nó era o inicio
-            if(anterior==None):
-                #inicio   aponta para novo nó,                
-                self.no_inicio=no_novo
-                #novo nó aponta para o antigo inicio
-                no_novo.proximo_no = no
-                # e o antigo nó do inicio aponta para o novo nó que agroa é o inicio
-                no.anterior_no=no_novo
-            if(no.proximo_no==None):
-                #o no era o fim, então o fim aponta para novo nó
-                self.no_fim=no_novo
-                #o nó novo aponta seu anteriro para o antigo nó fim
-                no_novo.anterior_no = no
-                #e o antigo no fim  a aponta seu proximo para o novo no
-                no.proximo_no = no_novo
-           
-            self.tamanho+=1
+        no_novo=No(valor)
+        
+        #caso o nó seja inserido no meio de dois nós 
+        if((no.proximo_no!=None) & (no.anterior_no!=None)):
+            #o nó anterior do no atual aponta com seu proximo para o no novo
+            anterior.proximo_no = no_novo
+            #o anteriro do novo nó aponta para o anterior
+            no_novo.anterior_no = anterior
+            #o proximo do nó novo aponta para no 
+            no_novo.proximo_no = no
+            # e o anterior de no aponto para no novo
+            no.anterior_no=no_novo
+        
+        #não existe nó anterior, então o nó era o inicio
+        if(anterior==None):
+            #inicio   aponta para novo nó,                
+            self.no_inicio=no_novo
+            #novo nó aponta para o antigo inicio
+            no_novo.proximo_no = no
+            # e o antigo nó do inicio aponta para o novo nó que agroa é o inicio
+            no.anterior_no=no_novo
+        
+        #Não existe um próximo nó, então o nó era o do fim
+        if(no.proximo_no==None):
+            #o no era o fim, então o fim aponta para novo nó
+            self.no_fim=no_novo
+            #o nó novo aponta seu anteriro para o antigo nó fim
+            no_novo.anterior_no = no
+            #e o antigo no fim  a aponta seu proximo para o novo no
+            no.proximo_no = no_novo
+        
+        self.tamanho+=1
 
+    
 
     #retira da posição
 
