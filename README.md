@@ -1,2 +1,3 @@
 # APA
-## CEFET 2022
+
+Implementações das principais estruturas de dados em python.
